@@ -22,7 +22,10 @@
             <el-table-column label='tagList' prop='tagList'>
             </el-table-column>
         </el-table>
-
+        <div class="div1">
+            <div class="div2">111</div>
+            <div class="div3">222</div>
+        </div>
     </div>
 </template>
 
@@ -88,3 +91,13 @@
         }
     };
 </script>
+<style>
+    .div1 {
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>

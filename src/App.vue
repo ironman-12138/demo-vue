@@ -41,7 +41,7 @@
   html,body{
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
   }
   .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active, .slide-up-enter-active, .slide-up-leave-active {

@@ -15,8 +15,8 @@
         <!-- 盒子动画效果 -->
         <transition name="run">
             <div v-if="show">
-                <div class="div1">
-                    <div class="div2">
+                <div class="login-outer">
+                    <div class="login-outer2">
                         <el-form :rules="rules" ref="loginForm" :model="loginForm" class="loginContainer">
                             <h3 class="from-title">
                             系统登录
@@ -100,11 +100,11 @@
         position:fixed;
         background-size:100% 100%;
     }
-    .div1 {
+    .login-outer {
         margin: auto;
         width: 100%;
     }
-    .div2 {
+    .login-outer2 {
         margin: auto;
         margin-top: 150px;
         width: 400px;
