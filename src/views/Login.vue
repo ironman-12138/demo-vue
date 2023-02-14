@@ -35,8 +35,8 @@
                                 <img :src="captchaUrl" style="width: 50px; height: 20px;">
                             </el-form-item>
                             <div class="from-button">
-                                <el-button type="primary" @click="cannel">取消</el-button>
-                                <el-button type="primary" @click="submitLogin">登录</el-button>
+                                <el-button class="from-button-cannel" type="primary" plain @click="cannel">取消</el-button>
+                                <el-button class="from-button-login" type="primary" @click="submitLogin">登录</el-button>
                             </div>
                         </el-form>
                     </div>
@@ -109,7 +109,7 @@
         margin-top: 150px;
         width: 400px;
         height: 400px;
-        border: 1px solid rgb(134, 134, 134);
+        border: 1px solid rgb(134, 134, 134, 0.2);
         border-radius: 20px;
         background-color: white;
         padding: 15px 35px 15px 35px;
@@ -217,15 +217,23 @@
     }
     /* --------------------------按钮样式-------------------------- */
     /* --------------------------登录表单样式-------------------------- */
-    .from-title{
+    .from-title {
         margin: 0px auto 48px auto;
         text-align: center;
         font-size: 40px;
     }
-    .from-button{
+    .from-button {
         width: 100%;
         margin: auto;
         text-align: center;
+        display: flex;
+        justify-content: space-around;
+    }
+    .from-button-cannel {
+        width: 150px;
+    }
+    .from-button-login {
+        width: 150px;
     }
     /* --------------------------登录表单样式-------------------------- */
     /* --------------------------登录表单显示样式-------------------------- */

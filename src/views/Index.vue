@@ -20,7 +20,20 @@
                 </div>
                 <div class="index-right">
                     <!-- <WordCloud :data="wordData" :width="wordWidth" :height="wordHeight" :RADIUS="wordRadius"/> -->
-                    <WordCloud2 :textList="wordData"/>
+                    <div class="index-right-word">
+                        <WordCloud2 :textList="wordData" :callback="getWord"/>
+                    </div>
+
+                    <div class="index-right-hot">
+                        <div class="index-right-hot-title">热点榜</div>
+                        <div v-for="(item, index) in hotList" class="index-right-hot-data">
+                            <el-tooltip effect="light" placement="bottom">
+                                <div slot="content">{{ item.title }}</div>
+                                <span class="index-right-hot-data-title">{{ item.title }}</span>
+                            </el-tooltip>
+                            <span class="index-right-hot-data-num"><i class="el-icon-edit"></i>{{ item.praiseNum }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,7 +53,7 @@
         data() {
             return {
                 dataList: [
-                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题1', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-06 12:12:32'},
+                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner', content: '文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容', createTime: '2022-12-06 12:12:32'},
                     {id: 2, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题2', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-02 12:12:32'},
                     {id: 3, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题3', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-01 08:12:32'},
                     {id: 4, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题4', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-22 11:12:32'},
@@ -71,9 +84,31 @@
                     { text: "单词15", freq: 1 },
                     { text: "单词16", freq: 5 }
                 ],
+                hotList: [
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 1203},
+                    {title: "全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner", praiseNum: 1032},
+                    {title: "浅谈TheadLocal的使用场景和注意事项", praiseNum: 1029},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 823},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 821},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 736},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 532},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 489},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 423},
+                    {title: "前端 UI 组件库有哪些选择", praiseNum: 411},
+                ],
                 wordWidth: 400,
                 wordHeight: 200,
                 wordRadius: 60
+            }
+        },
+        methods: {
+            /**
+             * 子组件传参父组件接收
+             * @param {*} childrenData 子组件传递过来的参数
+             */
+            getWord(childrenData) {
+                // childrenData就是子组件传递过来的参数
+                console.log(childrenData)
             }
         },
         created() {
@@ -103,10 +138,51 @@
         width: 80%;
         margin-right: 100px;
     }
+    .index-right-word {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 10px 10px 10px 10px;
+    }
+    .index-right-hot {
+        margin-top: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    .index-right-hot-title {
+        font-family: "Lucida Calligraphy", cursive, serif, sans-serif;
+        font-size: x-large;
+        background-color: rgb(230, 230, 230);
+        padding: 10px 10px 10px 10px;
+    }
+    .index-right-hot-data {
+        padding: 10px 10px 10px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    .index-right-hot-data:hover {
+        background-color: rgba(247, 181, 96, 0.5);
+    }
+    .index-right-hot-data-title {
+        display: inline-block;
+        width: 200px;
+        /* 内容过长显示成省略号（内容显示为一行） */
+        white-space: nowrap;/*设置不换行*/
+        overflow: hidden; /*设置隐藏*/
+        text-overflow: ellipsis; /*设置隐藏部分为省略号*/
+    }
+    .index-right-hot-data-num {
+        float: right;
+        right: 1%;
+    }
     .data {
         display: flex;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
+        margin-bottom: 50px;
+        cursor: pointer;
+    }
+    .data:hover {
+        box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+        transition: all .2s ease-in-out;
     }
     .article {
         width: 80%;
@@ -114,5 +190,23 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        margin-left: 20px;
+    }
+    .article-title {
+        width: 300px;
+        font-weight: 600;
+        /* 内容过长显示成省略号（内容显示为一行） */
+        white-space: nowrap;/*设置不换行*/
+        overflow: hidden; /*设置隐藏*/
+        text-overflow: ellipsis; /*设置隐藏部分为省略号*/
+    }
+    .article-content {
+        width: 300px;
+        /* 内容过长显示成省略号（内容显示为2行） */
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
     }
 </style>

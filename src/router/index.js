@@ -8,6 +8,8 @@ import Quzhou from '@/views/Quzhou'
 import Menu from '@/views/Menu'
 import Index from '@/views/Index'
 import Login from '@/views/Login'
+import BlogEdit from '@/views/BlogEdit'
+import ErrorPage from '@/components/ErrorPage'
 
 Vue.use(Router)
 
@@ -15,7 +17,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/test'
+      redirect: '/index'
     },
     {
       path: '/count',
@@ -67,6 +69,16 @@ export default new Router({
       meta: {
         index: 0,
       },
+    },
+    {
+      path: '/blogEdit',
+      name: 'BlogEdit',
+      component: BlogEdit
+    }, 
+    {
+      path: '/*',
+      name: 'ErrorPage',
+      component: ErrorPage
     }
   ],
   mode: 'history'  //改变url地址的风格（#/ ==> /）

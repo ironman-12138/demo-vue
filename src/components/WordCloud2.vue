@@ -9,6 +9,7 @@
                 :key="index"
                 :id="'word-' + index"
                 :style="getStyle(item, index)"
+                @click="onClick(item.text)"
             >
                 {{ item.text }}
             </span>
@@ -68,6 +69,9 @@ export default {
             default: () => {
                 return [-45, 45];
             }
+        },
+        callback: {
+            type: Function
         }
     },
     data() {
@@ -105,6 +109,7 @@ export default {
             //     Math.max(0, Math.min(item.point.x, this.height - height)) +
             //     "px;";
             res += "color:" + item.color + ";";
+            res += "cursor: pointer;";
             // res += "transform:rotate(" + item.deg + "deg);";
             return res;
         },
@@ -217,6 +222,9 @@ export default {
                 return 0.5 - Math.random();
             });
             this.showTextList = showTextList;
+        },
+        onClick(word) {
+            this.callback(word)
         }
     }
 };
