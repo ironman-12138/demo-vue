@@ -222,7 +222,7 @@
         overflow: hidden;
         width: 178px;
         height: 88px;
-        background-color: white;
+        margin-left: 10px;
     }
     .avatar-uploader:hover {
         border-color: #409EFF;

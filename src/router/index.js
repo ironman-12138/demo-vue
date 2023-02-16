@@ -9,6 +9,7 @@ import Menu from '@/views/Menu'
 import Index from '@/views/Index'
 import Login from '@/views/Login'
 import BlogEdit from '@/views/BlogEdit'
+import BlogView from '@/views/BlogView'
 import ErrorPage from '@/components/ErrorPage'
 
 Vue.use(Router)
@@ -74,6 +75,11 @@ export default new Router({
       path: '/blogEdit',
       name: 'BlogEdit',
       component: BlogEdit
+    },
+    {
+      path: '/blogView',
+      name: 'BlogView',
+      component: BlogView
     }, 
     {
       path: '/*',

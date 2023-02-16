@@ -10,6 +10,7 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import './routerPermission'
 import hasPermission from "./permission";
+import '@/assets/svg/index.js';
 
 // 按钮权限 自定义指令
 Vue.directive('hasPermission', hasPermission);

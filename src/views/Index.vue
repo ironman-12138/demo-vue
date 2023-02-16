@@ -8,12 +8,17 @@
             <div class="index-content">
                 <div class="index-left">
                     <div v-for="(item, index) in dataList">
-                        <div class="data">
+                        <div class="data" @click="viewBlog(item.id)">
                             <img :src="item.img" />
                             <div class="article">
                                 <div class="article-title">{{ item.title }}</div>
                                 <div class="article-content">{{ item.content }}</div>
-                                <div class="article-info">{{ item.createTime }}</div>
+                                <div class="article-info">
+                                    <span>{{ item.createTime }}</span>
+                                    <span class="article-info-svg" v-if="!item.praise"><svg-icon iconClass="dianzan"></svg-icon></span>
+                                    <span class="article-info-svg" v-else><svg-icon iconClass="dianzan-after"></svg-icon></span>
+                                    <span><svg-icon iconClass="shoucang"></svg-icon></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,18 +58,18 @@
         data() {
             return {
                 dataList: [
-                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner', content: '文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容', createTime: '2022-12-06 12:12:32'},
-                    {id: 2, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题2', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-02 12:12:32'},
-                    {id: 3, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题3', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-01 08:12:32'},
-                    {id: 4, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题4', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-22 11:12:32'},
-                    {id: 5, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题5', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-08 12:12:32'},
-                    {id: 6, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题6', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-06 12:12:32'},
-                    {id: 7, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题7', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-01 16:12:32'},
-                    {id: 8, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题8', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-10-01 12:12:32'},
-                    {id: 9, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题9', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32'},
-                    {id: 10, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题10', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32'},
-                    {id: 11, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题11', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-08-01 12:12:32'},
-                    {id: 12, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题12', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-07-01 12:12:32'}
+                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner', content: '文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容', createTime: '2022-12-06 12:12:32', praise: true},
+                    {id: 2, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题2', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-02 12:12:32', praise: true},
+                    {id: 3, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题3', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-01 08:12:32', praise: false},
+                    {id: 4, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题4', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-22 11:12:32', praise: false},
+                    {id: 5, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题5', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-08 12:12:32', praise: false},
+                    {id: 6, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题6', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-06 12:12:32', praise: false},
+                    {id: 7, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题7', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-01 16:12:32', praise: false},
+                    {id: 8, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题8', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-10-01 12:12:32', praise: false},
+                    {id: 9, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题9', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false},
+                    {id: 10, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题10', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false},
+                    {id: 11, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题11', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-08-01 12:12:32', praise: false},
+                    {id: 12, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题12', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-07-01 12:12:32', praise: false}
                 ],
                 wordData: [
                     { text: "单词", freq: 10 },
@@ -109,6 +114,14 @@
             getWord(childrenData) {
                 // childrenData就是子组件传递过来的参数
                 console.log(childrenData)
+            },
+
+            /**
+             * 进入blog详情页
+             * @param {*} id blog文章id
+             */
+            viewBlog(id) {
+                this.$router.push({ path: '/blogView', query: {id: id}});
             }
         },
         created() {
@@ -208,5 +221,9 @@
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
+    }
+    .article-info-svg {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 </style>
