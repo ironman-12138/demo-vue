@@ -15,9 +15,10 @@
                                 <div class="article-content">{{ item.content }}</div>
                                 <div class="article-info">
                                     <span>{{ item.createTime }}</span>
-                                    <span class="article-info-svg" v-if="!item.praise"><svg-icon iconClass="dianzan"></svg-icon></span>
-                                    <span class="article-info-svg" v-else><svg-icon iconClass="dianzan-after"></svg-icon></span>
-                                    <span><svg-icon iconClass="shoucang"></svg-icon></span>
+                                    <span class="article-info-svg" v-if="!item.praise" @click.stop="praise(item, 1)"><svg-icon iconClass="dianzan"></svg-icon></span>
+                                    <span class="article-info-svg" v-else @click.stop="praise(item, 0)"><svg-icon iconClass="dianzan-after"></svg-icon></span>
+                                    <span class="article-info-svg" v-if="!item.collect" @click.stop="collect(item, 1)"><svg-icon iconClass="shoucang"></svg-icon></span>
+                                    <span class="article-info-svg" v-else @click.stop="collect(item, 0)"><svg-icon iconClass="shoucang-after"></svg-icon></span>
                                 </div>
                             </div>
                         </div>
@@ -58,18 +59,18 @@
         data() {
             return {
                 dataList: [
-                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner', content: '文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容', createTime: '2022-12-06 12:12:32', praise: true},
-                    {id: 2, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题2', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-02 12:12:32', praise: true},
-                    {id: 3, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题3', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-01 08:12:32', praise: false},
-                    {id: 4, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题4', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-22 11:12:32', praise: false},
-                    {id: 5, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题5', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-08 12:12:32', praise: false},
-                    {id: 6, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题6', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-06 12:12:32', praise: false},
-                    {id: 7, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题7', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-01 16:12:32', praise: false},
-                    {id: 8, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题8', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-10-01 12:12:32', praise: false},
-                    {id: 9, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题9', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false},
-                    {id: 10, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题10', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false},
-                    {id: 11, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题11', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-08-01 12:12:32', praise: false},
-                    {id: 12, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题12', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-07-01 12:12:32', praise: false}
+                    {id: 1, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '全自动灰度服务搭建和发布实战 | SpringCloudGateway + Nacos + GitlabRunner', content: '文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容', createTime: '2022-12-06 12:12:32', praise: true, collect: true},
+                    {id: 2, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题2', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-02 12:12:32', praise: true, collect: false},
+                    {id: 3, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题3', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-12-01 08:12:32', praise: false, collect: false},
+                    {id: 4, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题4', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-22 11:12:32', praise: false, collect: true},
+                    {id: 5, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题5', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-08 12:12:32', praise: false, collect: false},
+                    {id: 6, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题6', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-06 12:12:32', praise: false, collect: false},
+                    {id: 7, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题7', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-11-01 16:12:32', praise: false, collect: false},
+                    {id: 8, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题8', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-10-01 12:12:32', praise: false, collect: true},
+                    {id: 9, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题9', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false, collect: false},
+                    {id: 10, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题10', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-09-01 12:12:32', praise: false, collect: false},
+                    {id: 11, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题11', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-08-01 12:12:32', praise: false, collect: false},
+                    {id: 12, img: 'https://i.postimg.cc/PfRvXRxC/image.png', title: '标题12', content: '文章内容。。。。。。。。。。。。。。。。。。。。。。。', createTime: '2022-07-01 12:12:32', praise: false, collect: false}
                 ],
                 wordData: [
                     { text: "单词", freq: 10 },
@@ -122,6 +123,24 @@
              */
             viewBlog(id) {
                 this.$router.push({ path: '/blogView', query: {id: id}});
+            },
+
+            /**
+             * 点赞
+             * @param {*} item 数据
+             * @param {*} type 1：点赞，0：取消点赞
+             */
+            praise(item, type) {
+                item.praise = (type == 1 ? true : false);
+            },
+
+            /**
+             * 收藏
+             * @param {*} item 数据
+             * @param {*} type 1：收藏，0：取消收藏
+             */
+            collect(item, type) {
+                item.collect = (type == 1 ? true : false);
             }
         },
         created() {
@@ -225,5 +244,22 @@
     .article-info-svg {
         margin-left: 10px;
         margin-right: 10px;
+    }
+    .article-info-svg:active {
+        animation: beat 1s ease-in-out forwards;
+    }
+    @keyframes beat {
+        0%{
+            transform: translate(-50%,-50%) scale(0.5);
+            opacity: 0.2;
+        }
+        50%{
+            transform: translate(-50%,-50%) scale(1);
+            opacity: 0.8;
+        }
+        100%{
+            transform: translate(-50%,-50%) scale(1.1);
+            opacity: 1;
+        }
     }
 </style>

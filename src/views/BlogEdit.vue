@@ -22,7 +22,7 @@
         </div>
         <br>
         <div class="mavonEditor">
-            <mavon-editor style="height: 600px" :toolbars="markdownOption" v-model="blog.content" @save="$save"/>
+            <mavon-editor style="height: 600px" :toolbars="markdownOption" v-model="blog.content" ref="md" @save="$save"/>
         </div>
         <br>
         <div class="blogEdit-base">
@@ -76,6 +76,7 @@
     </div>
 </template>
 <script>
+    import { saveAs } from 'file-saver';
     import Header from "../components/Header.vue";
     export default {
         components: {
@@ -107,7 +108,7 @@
                     undo: true, // 上一步
                     redo: true, // 下一步
                     trash: true, // 清空
-                    //save: true, // 保存（触发events中的save事件）
+                    save: true, // 保存（触发events中的save事件）
                     /* 1.4.2 */
                     navigation: true, // 导航目录
                     /* 2.1.8 */
@@ -186,16 +187,21 @@
             },
 
             staging() {
+                let strData = new Blob([this.blog.content], { type: 'text/plain;charset=utf-8' });
+                saveAs(strData, "blog下载.txt");
                 this.$message({
                     message: '暂存成功',
                     type: 'success'
                 });
             },
             release() {
+                console.log(this.$refs.md.d_render); //html
+                console.log(this.blog.content);
                 this.$message({
                     message: '发布成功',
                     type: 'success'
                 });
+                this.$router.push({ path: '/blogView'});
             }
         }
     };

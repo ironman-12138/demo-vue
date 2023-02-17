@@ -5,7 +5,7 @@ export default {
   inserted(el, binding, vnode) {
     const { value } = binding;
     localStorage.setItem('userPermissions', 'home:advertising:save,home:advertising:update')
-    const permissions = localStorage.getItem('userPermissions')&& localStorage.getItem('userPermissions').split(',');
+    const permissions = localStorage.getItem('userPermissions') && localStorage.getItem('userPermissions').split(',');
     // 判断传入的组件权限是否符合要求
     if (value && value instanceof Array && value.length > 0) {
       const permissionFlag = value;

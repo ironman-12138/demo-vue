@@ -14,10 +14,12 @@
         <br>
         <div class="split-line"></div>
         <br>
-        <div>{{ blog.content }}</div>
+        <div v-html="blog.content"></div>
     </div>
 </template>
+
 <script>
+    import 'highlight.js/styles/atom-one-dark.css' //引入html内容样式
     import Header from "../components/Header.vue";
     export default {
         name: 'BlogView',
@@ -39,12 +41,23 @@
             };
         },
         methods: {
-
+            readFile(filePath){
+                // 创建一个新的xhr对象
+                let xhr = null, okStatus = document.location.protocol === 'file' ? 0 : 200
+                xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')      
+                xhr.open('GET', filePath, false)
+                xhr.overrideMimeType('text/html;charset=utf-8')
+                xhr.send(null)
+                return xhr.status === okStatus ? xhr.responseText : null
+            }
         },
         created() {
             if (this.$route.query.id) {
                 console.log(this.$route.query.id, "id");
             }
+            this.$nextTick(function () {
+                this.blog.content = this.readFile('http://develop-static.zhihuipk.com/1676623648712=-=111.txt');
+            })
         }
     }
 </script>

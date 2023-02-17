@@ -5,6 +5,7 @@
         <el-button type="primary" @click="test3()">生命周期导出接口测试</el-button>
         <el-button v-hasPermission="['home:advertising:save']">新建</el-button>
         <el-button v-hasPermission="['home:advertising:update']">编辑</el-button>
+        <el-button v-hasPermission="['home:advertising:delete']">删除</el-button>
         <br>
         <el-table label="表格[开发中]" :data="list">
             <el-table-column label='id' prop='id'>
