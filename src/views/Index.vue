@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Header></Header>
+        <Header :callback="headerSearch"></Header>
         
         <div style="height: 6rem;"></div>
 
@@ -118,6 +118,15 @@
             },
 
             /**
+             * 全局搜索
+             * @param {*} searchStr 子组件传递过来的参数
+             */
+            headerSearch(searchStr) {
+                // searchStr就是子组件传递过来的参数
+                console.log(searchStr)
+            },
+
+            /**
              * 进入blog详情页
              * @param {*} id blog文章id
              */
@@ -144,10 +153,13 @@
             }
         },
         created() {
+            if (this.$route.query.searchStr) {
+                this.searchStr = this.$route.query.searchStr
+            }
         }
     }
 </script>
-<style>
+<style scoped>
     #app {
         height: 100%;
         margin: 0px;

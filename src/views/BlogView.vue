@@ -14,12 +14,19 @@
         <br>
         <div class="split-line"></div>
         <br>
-        <div v-html="blog.content"></div>
+        <mavon-editor
+            v-model="blog.content"
+            :ishljs="true"
+            default-open="preview"
+            :editable="false"
+            :subfield="false" 
+            :toolbarsFlag="false"
+        />
+        <!-- <div v-html="blog.content"></div> -->
     </div>
 </template>
 
 <script>
-    import 'highlight.js/styles/atom-one-dark.css' //引入html内容样式
     import Header from "../components/Header.vue";
     export default {
         name: 'BlogView',
@@ -30,7 +37,7 @@
             return {
                 blog: {
                     title: "标题",
-                    content: "内容华坎大哈看的口才不错",
+                    content: "",
                     imgUrl: "",
                     tag: ['标签一', '标签二', '标签三'],
                     open: true,
@@ -57,11 +64,12 @@
             }
             this.$nextTick(function () {
                 this.blog.content = this.readFile('http://develop-static.zhihuipk.com/1676623648712=-=111.txt');
+                console.log(this.blog.content);
             })
         }
     }
 </script>
-<style>
+<style scoped>
     .blogView {
         max-width: 960px;
         margin: auto;

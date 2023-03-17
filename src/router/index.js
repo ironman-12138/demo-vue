@@ -10,6 +10,7 @@ import Index from '@/views/Index'
 import Login from '@/views/Login'
 import BlogEdit from '@/views/BlogEdit'
 import BlogView from '@/views/BlogView'
+import TestCalendar from '@/views/TestCalendar'
 import ErrorPage from '@/components/ErrorPage'
 
 Vue.use(Router)
@@ -80,6 +81,11 @@ export default new Router({
       path: '/blogView',
       name: 'BlogView',
       component: BlogView
+    }, 
+    {
+      path: '/testCalendar',
+      name: 'TestCalendar',
+      component: TestCalendar
     }, 
     {
       path: '/*',

@@ -10,6 +10,13 @@
                     <el-menu-item index="/404">消息中心</el-menu-item>
                 </el-menu>
             </div>
+            <div class="header-search">
+                <el-input
+                    v-model="searchStr"
+                    suffix-icon="el-icon-search"
+                    class="header-search-input"
+                    @change="search()"></el-input>
+            </div>
             <div class="header-user">
                 <el-avatar :size="30" :src="user.avatar"></el-avatar>
                 <div style="margin-left: 0.5rem;">
@@ -28,6 +35,11 @@
 <script>
 export default {
     name: 'Header',
+    props: {
+        callback: {
+            type: Function
+        }
+    },
     data() {
         return {
             user: {
@@ -38,11 +50,15 @@ export default {
             top: 0,
             navShow: true,
             activeIndex: '/index',
+            searchStr: ''
         };
     },
     methods: {
         handleSelect(key, keyPath) {
             this.$router.push({ path: key});
+        },
+        search() {
+            this.callback(this.searchStr);
         },
         // 获取页面滚动距离
         handleScroll () {
@@ -103,6 +119,13 @@ export default {
         display: flex;
         align-items: center;
         line-height: 3.75rem;  
+    }
+    .header-search {
+        line-height: 3.75rem;
+        width: 15rem;
+    }
+    .header-search .el-input__inner {
+        height: 2.1rem;
     }
     /* -------------屏幕滚动上下滑显示隐藏导航栏------------- */
     .navOn {

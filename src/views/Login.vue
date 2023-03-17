@@ -30,7 +30,7 @@
                                 </el-input>
                             </el-form-item>
                             <el-form-item prop="code">
-                                <el-input type="text" auto-complete="false" v-model="loginForm.code" placeholder="点击图片更换验证码" style="width: 250px; margin-right: 5px">
+                                <el-input type="text" auto-complete="false" v-model="loginForm.code" placeholder="点击图片更换验证码" style="width: 200px; margin-right: 5px">
                                 </el-input>
                                 <img :src="captchaUrl" style="width: 50px; height: 20px;">
                             </el-form-item>
@@ -45,6 +45,7 @@
         </transition>
     </div>
 </template>
+
 <script>
     export default {
         name: 'Login',
@@ -107,7 +108,7 @@
     .login-outer2 {
         margin: auto;
         margin-top: 150px;
-        width: 400px;
+        width: 300px;
         height: 400px;
         border: 1px solid rgb(134, 134, 134, 0.2);
         border-radius: 20px;

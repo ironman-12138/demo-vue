@@ -4,14 +4,14 @@ import router from '@/router'
 import store from '@/store'
 
 const request1 = axios.create({
-    baseURL: "http://127.0.0.1:8819/",
+    baseURL: process.env.NODE_ENV == 'dev' ? "http://127.0.0.1:8819/" : "http://127.0.0.1:8888/",
     timeout: 5000
 })
 
 
 // 创建axios实例
 const request2 = axios.create({
-    baseURL:"http://192.168.1.163:8036/",
+    baseURL: process.env.NODE_ENV == 'dev' ? "http://127.0.0.1:8819/" : "http://127.0.0.1:8888/",
     timeout:5000
 })
 

@@ -13,7 +13,7 @@
             <div class="bubble"></div>
         </div>
 
-        <Header></Header>
+        <Header :callback="headerSearch"></Header>
 
         <div style="height: 6rem;"></div>
 
@@ -75,6 +75,7 @@
         </div>
     </div>
 </template>
+
 <script>
     import { saveAs } from 'file-saver';
     import Header from "../components/Header.vue";
@@ -202,7 +203,15 @@
                     type: 'success'
                 });
                 this.$router.push({ path: '/blogView'});
-            }
+            },
+            /**
+             * 全局搜索
+             * @param {*} searchStr 子组件传递过来的参数
+             */
+            headerSearch(searchStr) {
+                // searchStr就是子组件传递过来的参数
+                this.$router.push({ path: '/index', query: {searchStr: searchStr}});
+            },
         }
     };
 </script>

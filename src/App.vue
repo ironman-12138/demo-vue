@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <transition :name="transitionName" mode="out-in">
-      <router-view></router-view>
+    <transition :name="transitionName">
+      <router-view class="position-div"></router-view>
     </transition>
   </div>
 </template>
@@ -35,6 +35,7 @@
   #app{
     height: 100%;
     overflow: hidden;
+    position:relative; /*给正文内容块的父级随便添加个定位属性*/
   }
   html,body{
     margin: 0;
@@ -42,9 +43,10 @@
     min-height: 100%;
     width: 100%;
   }
+  
   .slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active, .slide-up-enter-active, .slide-up-leave-active {
     will-change: transform;
-    transition: all 500ms;
+    transition: all 1000ms;
   }
   /* 右滑初始装状态 */
   .slide-right-enter {
