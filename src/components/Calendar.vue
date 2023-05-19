@@ -12,19 +12,37 @@
                         :class="{ notCurMonth: !item.isCurMonth, currentDay: item.date === curDate, selectDay: item.isSelected, rangeSelectd: item.isRangeSelected, weekend: item.isWeekend }"
                         @click="handleItemClick(item, i, index)">
                         <!-- 编辑图标 -->
-                        <div v-if="item.isCurMonth" class="edit" @click.stop="edit(item)">+</div>
+                        <div v-if="item.isCurMonth && !completedList.includes(item.date) && !taskList.includes(item.date)" @click.stop="edit(item)">
+                            <img class="edit-img" src="../assets/img/edit.png"/>
+                        </div>
+                        <!-- 完成图标 -->
+                        <div v-if="item.isCurMonth && completedList.includes(item.date)">
+                            <img class="completed-img" src="../assets/img/true.png"/>
+                        </div>
+                        <!-- 待完成图标 -->
+                        <div v-if="item.isCurMonth && taskList.includes(item.date)">
+                            <img class="warn-img" src="../assets/img/warn.png"/>
+                        </div>
                         <!-- 日期 -->
-                        <div v-if="item.isCurMonth">{{ item.date }}</div>
+                        <div v-if="item.isCurMonth" class="date-font">{{ parseTime(item.date) }}</div>
                         <!-- 排班人员 -->
-                        <div v-for="(duty, index) in dutyList" :key="duty.date">
-                            <div v-if="duty.date == item.date && item.isCurMonth" class="person">
-                                值班人员：{{ duty.person }}
+                        <div>
+                            <div v-for="(duty, index) in dutyList" :key="index">
+                                <div v-if="duty.date == item.date && item.isCurMonth" class="person">
+                                    <el-tooltip :content="duty.person" placement="top-start" effect="dark" popper-class="atooltip">
+                                        <span class="tbody-text">值班人员：{{ duty.person }}</span>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </div>
                         <!-- 备注 -->
-                        <div v-for="(remark, index) in remarks" :key="remark.date">
-                            <div v-if="remark.date == item.date && item.isCurMonth" class="remark">
-                                备注：{{ remark.remark }}
+                        <div>
+                            <div v-for="(remark, index) in remarks" :key="index">
+                                <div v-if="remark.date == item.date && item.isCurMonth" class="remark">
+                                    <el-tooltip :content="remark.remark" placement="top-start" effect="dark" popper-class="atooltip">
+                                        <span class="tbody-text">备注：{{ remark.remark }}</span>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -43,6 +61,8 @@
  * startOfWeek：开始第一周的起始位置；
  * dutyList：值班人员，格式[{date: "2023-03-02", person: "张三 李四"}]
  * remarks：日期备注，格式[{date: "2023-03-02", remark: "当日天气很好"}]
+ * completedList: [], 完成任务的日期，格式["2023-03-02"]
+ * taskList: [] 待完成任务的日期，格式["2023-03-02", "2023-03-06"]
  */
 import { getDaysInMonth, handleCrateDate, parseTime } from '../util/calendar.js'
 export default {
@@ -84,6 +104,18 @@ export default {
             }
         },
         remarks: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        completedList: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        taskList: {
             type: Array,
             default() {
                 return []
@@ -209,12 +241,18 @@ export default {
             // 若是 为展示状态的 则不可点击触发之，否则可以点击勾选选中日历排班
             if (!this.canSelect) return;
             if (!item.isCurMonth) return;
-            console.log('单元格点击', item)
-            // console.log('选中的selectedDates', this.selectedDates)
+            // 清除之前选中的日期
+            this.res.forEach((item, index) => {
+                let selectList = Array.from(item).filter(i => i.isSelected == true);
+                selectList.forEach((item2, index) => {
+                    item2.isSelected = false;
+                })
+            })
             this.$nextTick(() => {
                 this.res[i][j].isSelected = !this.res[i][j].isSelected
                 if (this.res[i][j].isSelected) {
-                    this.selectedDates.push(this.res[i][j].date)
+                    this.selectedDates = [this.res[i][j].date] //单选
+                    // this.selectedDates.push(this.res[i][j].date)
                     this.selectedDates = Array.from(new Set(this.selectedDates))
                 } else {
                     this.selectedDates.splice(this.selectedDates.indexOf(item.date), 1)
@@ -226,6 +264,10 @@ export default {
         // 点击编辑按钮
         edit(item) {
             this.$emit('calendarEdit', item)
+        },
+
+        parseTime(date) {
+            return parseTime(date, '{d}');
         }
     }
 }
@@ -253,12 +295,13 @@ export default {
     cursor: pointer;
     text-align: center;
     background-color: #f0f3f8;
-    border: 1px solid #e0e6ed;
+    color: #8a60a5;
+    /* border: 1px solid #e0e6ed; */
 }
 
 .tbody>tr>td {
     cursor: pointer;
-    border: 1px solid #e0e6ed;
+    /* border: 1px solid #e0e6ed; */
     position: relative;
 }
 
@@ -267,12 +310,13 @@ export default {
 }
 
 .currentDay {
-    background-color: #f8f8de;
+    background-color: #b9e4f5;
+    border-radius: 50%;
 }
 
 .selectDay {
-    color: #fff;
-    background-color: #409eff;
+    background-color: #e1edfa;
+    border-radius: 50%;
 }
 
 .rangeSelectd {
@@ -284,12 +328,11 @@ export default {
     color: #f73131;
 }
 
-.edit {
+.edit-img {
+    max-width: 20px;
+    max-height: 20px;
+    object-fit: cover;  /*图片按原始宽高比例*/
     position: absolute;
-    width: 15px;
-    height: 15px;
-    border: 1px solid red;
-    border-radius: 50%;
     top: 0px;
     right: 0px;
     text-align: center;
@@ -311,6 +354,38 @@ export default {
     text-overflow: ellipsis;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
+}
+
+.tbody-text {
+    font-size: 10px;
+    color: #606266;
+}
+
+.date-font {
+    font-size: 10px;
+    color: #606266;
+}
+
+.completed-img {
+    max-width: 20px;
+    max-height: 20px;
+    object-fit: cover;  /*图片按原始宽高比例*/
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    line-height: 15px;
+}
+
+.warn-img {
+    max-width: 20px;
+    max-height: 20px;
+    object-fit: cover;  /*图片按原始宽高比例*/
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    line-height: 15px;
 }
 </style>
   

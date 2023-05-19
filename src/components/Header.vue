@@ -27,18 +27,31 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
+                <i class="el-icon-date" style="margin-left: 10px; cursor: pointer;" @click="drawer = true"></i>
             </div>
         </div>
+        <el-drawer
+            title="代办"
+            append-to-body
+            :visible.sync="drawer"
+            :direction="direction"
+            :before-close="handleClose">
+            <ToDo></ToDo>
+        </el-drawer>
 	</div>
 </template>
 
 <script>
+import ToDo from '../components/ToDo.vue'
 export default {
     name: 'Header',
     props: {
         callback: {
             type: Function
         }
+    },
+    components: {
+        ToDo
     },
     data() {
         return {
@@ -50,7 +63,9 @@ export default {
             top: 0,
             navShow: true,
             activeIndex: '/index',
-            searchStr: ''
+            searchStr: '',
+            drawer: false,
+            direction: 'rtl'
         };
     },
     methods: {
@@ -68,6 +83,9 @@ export default {
             if (command == 'loginOut') {
                 this.$router.push({ path: '/login'});
             }
+        },
+        handleClose(done) {
+            done();
         }
     },
     // 获取浏览器滚轮

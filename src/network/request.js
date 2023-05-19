@@ -4,7 +4,7 @@ import router from '@/router'
 import store from '@/store'
 
 const request1 = axios.create({
-    baseURL: process.env.NODE_ENV == 'dev' ? "http://127.0.0.1:8819/" : "http://127.0.0.1:8888/",
+    baseURL: process.env.NODE_ENV == 'dev' ? "http://127.0.0.1:5693/" : "http://127.0.0.1:5693/",
     timeout: 5000
 })
 
@@ -22,6 +22,7 @@ request1.interceptors.request.use(config => {
     if (window.sessionStorage.getItem('token')) {
         config.headers['token'] = window.sessionStorage.getItem('token');
     }
+    config.headers['token'] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE2ODQzNzc3OTUsImV4cCI6MTY4NDk4MjU5NX0.ggBSzIMfMXJcHC5Ujrc6O9XJqVP0h3CuK5b-Pq96LhB4_6838Y-05_0v7-IqqhuPV3kexnMhvUAb5h5zrBKYdA"
     return config;
     
 })

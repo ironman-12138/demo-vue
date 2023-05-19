@@ -76,7 +76,8 @@ export default {
             showSchedule: false, // 是否展示排班
             dutyList: [
                 {date: "2023-03-02", person: "张三 李四"},
-                {date: "2023-03-08", person: "王五 赵六 赵六 赵六 赵六 赵六 赵六 赵六"}
+                {date: "2023-03-08", person: "王五 赵六 赵六 赵六 赵六 赵六 赵六 赵六"},
+                {date: "2023-03-18", person: "测试"}
             ], //值班人员
             remarks: [{date: "2023-03-18", remark: "当日天气很好，适合出外游玩"}]
         };

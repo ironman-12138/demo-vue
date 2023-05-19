@@ -12,6 +12,20 @@ import './routerPermission'
 import hasPermission from "./permission";
 import '@/assets/svg/index.js';
 
+//----------------highlight----------------
+//引入样式
+import 'highlight.js/styles/monokai-sublime.css'
+//引入库
+import his from 'highlight.js'
+//创建指令
+Vue.directive('highlight', function (el) {
+  let blocks = el.querySelectorAll(' pre code');
+  blocks.forEach((block) => {
+    highlight.highlightAll(block)
+  })
+})
+//----------------highlight----------------
+
 // 按钮权限 自定义指令
 Vue.directive('hasPermission', hasPermission);
 Vue.config.productionTip = false

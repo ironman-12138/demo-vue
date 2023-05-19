@@ -126,3 +126,15 @@ export const excel = (id) => {
         data: data
     })
 }
+
+/**
+ * 导出excel
+ */
+export const excelTwo = (data) => {
+    return request1({
+        url: "/qscrm/customer/export",
+        method: "post",
+        responseType: 'blob',
+        data: data
+    })
+}

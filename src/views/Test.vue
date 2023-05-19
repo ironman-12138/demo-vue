@@ -3,6 +3,7 @@
         <el-button type="primary" @click="test1()">导出接口测试</el-button>
         <el-button type="primary" @click="test2()">资源接口测试</el-button>
         <el-button type="primary" @click="test3()">生命周期导出接口测试</el-button>
+        <el-button type="primary" @click="test5()">客户导出接口测试</el-button>
         <el-button v-hasPermission="['home:advertising:save']">新建</el-button>
         <el-button v-hasPermission="['home:advertising:update']">编辑</el-button>
         <el-button v-hasPermission="['home:advertising:delete']">删除</el-button>
@@ -27,17 +28,23 @@
             <div class="div2">111</div>
             <div class="div3">222</div>
         </div>
+
+        <Oss style="width: 300px;" @callFatherData="callFatherData"></Oss>
     </div>
 </template>
 
 <script>
-    import {excel, typeList, getResourceList, exportList} from "@/api/users"
+    import Oss from "../components/library/Oss";
+    import {excel, typeList, getResourceList, exportList, excelTwo} from "@/api/users"
     export default {
         name: 'Test',
         data() {
             return {
                 list:[]
             };
+        },
+        components: {
+            Oss
         },
         methods: {
             test1() {
@@ -71,7 +78,9 @@
             },
 
             test5() {
-                
+                excelTwo({}).then(res => {
+                    this.downloadFile(res, "客户", 'xlsx')
+                })
             },
 
             // 下载文件
@@ -85,6 +94,10 @@
                 document.body.appendChild(link)
                 link.click()
                 document.body.removeChild(link)
+            },
+
+            callFatherData(data) {
+                console.log("父组件获取到的数据", data);
             }
         },
         created() {

@@ -12,6 +12,9 @@ import BlogEdit from '@/views/BlogEdit'
 import BlogView from '@/views/BlogView'
 import TestCalendar from '@/views/TestCalendar'
 import ErrorPage from '@/components/ErrorPage'
+import LibraryIndex from '@/views/library/Index'
+import LibraryOss from '@/views/library/Oss'
+import RollingLoad from '@/views/library/RollingLoad'
 
 Vue.use(Router)
 
@@ -19,24 +22,35 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
-    },
-    {
-      path: '/count',
-      name: 'Count',
-      component: Count,
-      meta: { title: '统计页面' , requiresAuth: false}
-    },
-    {
-      path: '/app',
-      name: 'App',
-      component: App
+      redirect: '/library/index'
     },
     {
       path: '/test',
       name: 'Test',
       component: Test,
       meta: { title: '测试页面' , requiresAuth: false}
+    },
+    {
+      path: '/library/index',
+      name: 'LibraryIndex',
+      component: LibraryIndex,
+      children: [   // 添加子路由
+        {
+          path: '/',
+          name: 'LibraryOss',
+          component: LibraryOss
+        },
+        {
+          path: '/library/oss',
+          name: 'LibraryOss',
+          component: LibraryOss
+        },
+        {
+          path: '/library/rollingLoad',
+          name: 'RollingLoad',
+          component: RollingLoad
+        }
+      ]
     },
     {
       path: '/server',
