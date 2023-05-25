@@ -30,7 +30,9 @@
                     {name: "7"},
                     {name: "8"},
                     {name: "9"},
-                ]
+                ],
+
+                timer: null
             };
         },
         methods: {
@@ -43,6 +45,7 @@
                     if (this.dataList.length >= total) {
                         this.noMore = true;
                         this.loading = false;
+                        return;
                     }else {
                         this.loading = true;
                         let _this = this;
@@ -58,25 +61,35 @@
                             {name: "8"},
                             {name: "9"}
                         ]
-                        setTimeout(() => {
+                        this.timer = setTimeout(() => {
                             _this.dataList = _this.dataList.concat(a);
-                        }, 1000)
+                        }, 2000);
+
                     }
                 }
             },
+
+            load () {
+                console.log('到底啦');
+            }
         },
         created() {
-        }
+        },
+        beforeDestroy() {
+            if (this.timer) {
+                clearInterval(this.timer);
+            }
+        },
+
     };
 </script>
-<style>
+<style scoped>
     .rolling-div {
         width: 23.3333rem; 
         height: 26.6667rem; 
         background-color: #ccf1f3;
-        overflow-y: auto;
+        overflow: auto;
     }
-
     .article {
         width: 100%;
         height: 50px;

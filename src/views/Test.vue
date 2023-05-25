@@ -30,21 +30,32 @@
         </div>
 
         <Oss style="width: 300px;" @callFatherData="callFatherData"></Oss>
+
+        <Select ref="select"></Select>
+        <el-button type="primary" @click="showDialog()">弹窗</el-button>
+
+        <SelectV2 ref="selectV2"></SelectV2>
+        <el-button type="primary" @click="showDialogV2()">弹窗2</el-button>
     </div>
 </template>
 
 <script>
     import Oss from "../components/library/Oss";
+    import Select from "../components/library/Select";
+    import SelectV2 from "../components/library/SelectV2";
     import {excel, typeList, getResourceList, exportList, excelTwo} from "@/api/users"
     export default {
         name: 'Test',
         data() {
             return {
-                list:[]
+                list:[],
+                visible: false
             };
         },
         components: {
-            Oss
+            Oss,
+            Select,
+            SelectV2
         },
         methods: {
             test1() {
@@ -98,6 +109,14 @@
 
             callFatherData(data) {
                 console.log("父组件获取到的数据", data);
+            },
+
+            showDialog() {
+                this.$refs.select.showDialog()
+            },
+
+            showDialogV2() {
+                this.$refs.selectV2.showDialog()
             }
         },
         created() {

@@ -13,15 +13,13 @@ import hasPermission from "./permission";
 import '@/assets/svg/index.js';
 
 //----------------highlight----------------
-//引入样式
-import 'highlight.js/styles/monokai-sublime.css'
-//引入库
-import his from 'highlight.js'
-//创建指令
-Vue.directive('highlight', function (el) {
-  let blocks = el.querySelectorAll(' pre code');
-  blocks.forEach((block) => {
-    highlight.highlightAll(block)
+// 引入 highlight.js 代码高亮工具
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-light.css'	//样式
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)    
   })
 })
 //----------------highlight----------------

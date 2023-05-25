@@ -22,7 +22,7 @@ request1.interceptors.request.use(config => {
     if (window.sessionStorage.getItem('token')) {
         config.headers['token'] = window.sessionStorage.getItem('token');
     }
-    config.headers['token'] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE2ODQzNzc3OTUsImV4cCI6MTY4NDk4MjU5NX0.ggBSzIMfMXJcHC5Ujrc6O9XJqVP0h3CuK5b-Pq96LhB4_6838Y-05_0v7-IqqhuPV3kexnMhvUAb5h5zrBKYdA"
+    config.headers['token'] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIxIiwic3ViIjoiYWRtaW4iLCJpYXQiOjE2ODQ5ODI4MDgsImV4cCI6MTY4NTU4NzYwOH0.Bfp1UJmLpGhM-1IFirFO9vOAwfgjiVprQHB5PpLn6LgfOL-gSXqf8R607K54t0aplBsw5O6AxSHlppVCuDzSzg"
     return config;
     
 })

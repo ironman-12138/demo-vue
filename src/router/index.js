@@ -15,6 +15,8 @@ import ErrorPage from '@/components/ErrorPage'
 import LibraryIndex from '@/views/library/Index'
 import LibraryOss from '@/views/library/Oss'
 import RollingLoad from '@/views/library/RollingLoad'
+import Draggable from '@/views/library/Draggable'
+import Select from '@/views/library/Select'
 
 Vue.use(Router)
 
@@ -49,6 +51,16 @@ export default new Router({
           path: '/library/rollingLoad',
           name: 'RollingLoad',
           component: RollingLoad
+        },
+        {
+          path: '/library/draggable',
+          name: 'Draggable',
+          component: Draggable
+        },
+        {
+          path: '/library/select',
+          name: 'Select',
+          component: Select
         }
       ]
     },

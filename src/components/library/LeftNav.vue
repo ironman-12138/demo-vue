@@ -2,11 +2,18 @@
 <template>
     <div class="left-nav">
         <el-menu default-active="system/user" :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened
-            class="el-menu-vertical-demo" background-color="#334157" text-color="#fff" active-text-color="#ffd04b">
+            class="el-menu-vertical-demo" >
             <div class="logobox">
                 <img class="logoimg" src="@/assets/logo.png" alt="">
             </div>
-            <div v-for="menu in allmenu">
+            <div style="text-align: center;">
+                <el-input
+                    v-model="searchStr"
+                    suffix-icon="el-icon-search"
+                    class="header-search-input"
+                    @change="search()"></el-input>
+            </div>
+            <div v-for="menu in allmenu" style="text-align: center;">
                 <!-- 如果当前有子菜单，则显示 el-submenu ，在el-subment 里调用 递归组件 -->
                 <el-submenu v-if="menu.children && menu.children.length > 0" :index="'/' + menu.url" :key="menu.id">
                     <template slot="title">
@@ -23,7 +30,7 @@
                 <!-- 如果没有子菜单，则显示当前内容 -->
                 <el-menu-item v-else :index="'/' + menu.url">
                         <i class="iconfont" :class="menu.icon"></i>
-                        {{ menu.menuName }}
+                        <span style="font-size: 16px;">{{ menu.menuName }}</span>
                 </el-menu-item>
             </div>
         </el-menu>
@@ -35,8 +42,16 @@ export default {
     data() {
         return {
             collapsed: false,
-            allmenu: []
+            allmenu: [],
+            dataList: [],
+            searchStr: ""
         }
+    },
+    methods: {
+        search() {
+            this.allmenu = this.dataList;
+            this.allmenu = this.allmenu.filter(item=>item.menuName.includes(this.searchStr))
+        },
     },
     // 创建完毕状态(里面是操作)
     created() {
@@ -44,31 +59,38 @@ export default {
             success: true,
             data: [
                 {
-                    id: 1,
-                    icon: 'el-icon-s-home',
-                    menuName: '组件库',
-                    url: null,
-                    children: [
-                        {
-                            id: 2,
-                            icon: 'el-icon-user',
-                            menuName: '切片上传',
-                            url: 'library/oss',
-                            children: null
-                        },
-                        {
-                            id: 3,
-                            icon: 'el-icon-user',
-                            menuName: '滚动加载',
-                            url: 'library/rollingLoad',
-                            children: null
-                        }
-                    ]
+                    id: 2,
+                    icon: 'el-icon-s-cooperation',
+                    menuName: '切片上传',
+                    url: 'library/oss',
+                    children: null
+                },
+                {
+                    id: 3,
+                    icon: 'el-icon-s-cooperation',
+                    menuName: '滚动加载',
+                    url: 'library/rollingLoad',
+                    children: null
+                },
+                {
+                    id: 4,
+                    icon: 'el-icon-s-cooperation',
+                    menuName: '元素拖拽',
+                    url: 'library/draggable',
+                    children: null
+                },
+                {
+                    id: 5,
+                    icon: 'el-icon-s-cooperation',
+                    menuName: '选人弹窗',
+                    url: 'library/select',
+                    children: null
                 }
             ],
             msg: 'success'
         }
         this.allmenu = res.data
+        this.dataList = res.data
 
         // userMenuTree().then(res => {
         //     if (res.code == "200") {
@@ -81,6 +103,7 @@ export default {
 <style>
     .left-nav {
         height: 100%;
+        border-right: 1px solid rgb(46, 46, 46, 0.2);
     }
     .el-menu-vertical-demo {
         height: 100%;
@@ -109,5 +132,9 @@ export default {
 
     .logoimg {
         height: 40px;
+    }
+
+    .header-search-input {
+        width: 80%;
     }
 </style>
